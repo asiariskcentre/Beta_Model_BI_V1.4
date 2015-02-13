@@ -24,7 +24,7 @@ Sys.setlocale(locale="English")
 
 #...............................................................................
 # Load databases
-  DB_Message      =   paste('IARP Version 1.3'); print(DB_Message)
+  DB_Message      =   paste('IARP Version 1.4'); print(DB_Message)
   DB_Message      =   paste('Libraries loaded - ', Sys.time()); print(DB_Message)
   CropSeasons     <-  readRDS('data/CropSeasons.Rds')
   Product_type.db <<- get_Product_type_db(CropSeasons)
@@ -129,7 +129,8 @@ display.flag <<- 0
                      #-------------------------------------------------------------------------------------------------
                      # Get and check user input file
                        raw_input  <<- read.csv(inFile$datapath, header = T, sep = ',', quote = input$quote)  # No dependency on input$dataset
-                       raw_input  <<- trim(raw_input)
+                       raw_input  <<- trim(raw_input) # remove all trailing spaces in cells
+                       
 
                        if (is.function(updateProgress)) {updateProgress(detail = 'Validating User Input ...........')}
                        Checked_raw_input <- Check_UserInput(raw_input, adminID.db, Exposure.db, Product_type.db, Check_UserInput_Name_Mismatch,  Check_UserInput_Prepare_Exposure_db, Check_UserInput_modelled_adminlevel, Check_UserInput_TSI_check)
